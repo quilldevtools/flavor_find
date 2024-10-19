@@ -10,7 +10,7 @@ on:
 permissions:
   pull-requests: write # Needed to add comments to the Pull Request that triggered the build
   actions: write # Needed to cancel a workflow when it no longer needs to run
-  contents: read
+  contents: read # Needed to checkout the repository withiin the github action
 
 
   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -28,9 +28,10 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: "11.0"
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.19.2"
+          channel: stable
+          flutter-version-file: pubspec.yaml # path to pubspec.yaml
       - run: flutter pub get
       # - run: flutter analyze
       # - run: flutter test
