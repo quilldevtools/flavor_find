@@ -30,8 +30,7 @@ jobs:
           java-version: "11.0"
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
-          flutter-version-file: 3.3.3
+          flutter-version-file: 3.13.2
       - run: flutter pub get
       # - run: flutter analyze
       # - run: flutter test
