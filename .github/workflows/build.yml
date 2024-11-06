@@ -28,6 +28,11 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: "11.0"
+      # Example to Create an .env file from GitHub secrets
+      # - name: Generate .env file
+      #   run: |
+      #     echo "API_KEY=${{ secrets.API_KEY }}" >> .env
+      #     echo "ANOTHER_SECRET=${{ secrets.ANOTHER_SECRET }}" >> .env
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -40,5 +45,5 @@ jobs:
       - uses: quilldevtools/quill-flutter-action@main
         with:
           app-path: "build/app/outputs/flutter-apk/app-release.apk"
-          pkg-name: "com.example.flutter_calculator"
+          pkg-name: "com.example.flavor_find"
           api-key: ${{secrets.QUILL_API_KEY}}
