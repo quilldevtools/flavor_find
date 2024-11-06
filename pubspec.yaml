@@ -92,6 +92,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
-    - .env
     - assets/images/flavor_find_logo.png
     - assets/images/flavor_find_logo_amber.png
