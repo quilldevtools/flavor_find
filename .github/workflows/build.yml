@@ -31,7 +31,7 @@ jobs:
       # Create an .env file from GitHub secrets
       - name: Generate .env file
         run: |
-          echo "RAPID_API_KEY=${{ secrets.API_KEY }}" >> .env
+          echo "RAPID_API_KEY=${{ secrets.RAPID_API_KEY }}" >> .env
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
