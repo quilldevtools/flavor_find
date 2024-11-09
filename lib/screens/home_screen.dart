@@ -14,11 +14,38 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   final MealDBApiService _apiService = MealDBApiService();
   late Future<List<Recipe>> _recipesFuture;
+  List<Recipe> _allRecipes = [];
+  List<Recipe> _filteredRecipes = [];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _recipesFuture = _apiService.getRecipes();
+    _fetchRecipes();
+  }
+
+  Future<void> _fetchRecipes() async {
+    _recipesFuture = _apiService.getRecipes(query: _searchController.text);
+    _recipesFuture.then((recipes) {
+      setState(() {
+        _allRecipes = recipes;
+        _filteredRecipes = recipes; // Initially, show all recipes
+      });
+    });
+  }
+
+  void _filterRecipes(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _filteredRecipes = _allRecipes;
+      });
+    } else {
+      setState(() {
+        _filteredRecipes = _allRecipes
+            .where((recipe) => recipe.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      });
+    }
   }
 
   @override
@@ -47,6 +74,8 @@ class HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextField(
+                    controller: _searchController,
+                    onChanged: _filterRecipes,
                     decoration: InputDecoration(
                       hintText: 'Search Recipes',
                       prefixIcon: const Icon(Icons.search),
@@ -97,7 +126,7 @@ class HomeScreenState extends State<HomeScreen> {
                   return const SliverToBoxAdapter(
                       child: Center(child: Text('No recipes found')));
                 } else {
-                  return RecipeGrid(recipes: snapshot.data!);
+                  return RecipeGrid(recipes: _filteredRecipes);
                 }
               },
             ),

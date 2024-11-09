@@ -83,6 +83,8 @@ class RecipeCard extends StatelessWidget {
                     Text(
                       '${recipe.category ?? 'Unknown'} • ${recipe.area ?? 'Unknown'}',
                       style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
